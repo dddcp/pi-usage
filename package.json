@@ -1,6 +1,6 @@
 {
 	"name": "pi-coding-quota",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Pi extension: show the remaining quota of the active coding-plan provider (GLM / Kimi / DeepSeek / MiniMax) in the footer status line",
 	"license": "MIT",
 	"author": "dddcp",
