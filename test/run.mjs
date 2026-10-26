@@ -33,6 +33,9 @@ function test(name, fn) {
 // 主题替身 — 不着色，直接返回原文，方便断言
 const theme = { fg: (_token, text) => text }
 
+/** 未来时间 fixture：多加 30s 余量，避免 countdown 取整在毫秒级竞争下抖动（CI 慢机会失败）。 */
+const inFuture = (ms) => new Date(Date.now() + ms + 30_000).toISOString()
+
 // ---------------------------------------------------------------------------
 // GLM — 2026-10-22 实测结构（CREDIT_LIMIT，含绝对值）
 // ---------------------------------------------------------------------------
@@ -332,9 +335,9 @@ test('compact number formatting', () => {
 test('countdown formats minutes/hours/days', () => {
 	assert.equal(countdown(null), '')
 	assert.equal(countdown('not-a-date'), '')
-	assert.equal(countdown(new Date(Date.now() + 45 * 60_000).toISOString()), '45m')
-	assert.equal(countdown(new Date(Date.now() + 83 * 60_000).toISOString()), '1h23m')
-	assert.equal(countdown(new Date(Date.now() + 52 * 3600_000).toISOString()), '2d4h')
+	assert.equal(countdown(inFuture(45 * 60_000)), '45m')
+	assert.equal(countdown(inFuture(83 * 60_000)), '1h23m')
+	assert.equal(countdown(inFuture(52 * 3600_000)), '2d4h')
 	assert.equal(countdown(new Date(Date.now() - 60_000).toISOString()), '0m')
 })
 
@@ -344,8 +347,8 @@ test('status line: percent rows with values and countdown', () => {
 		title: 'zai-coding-cn',
 		plan: 'Lite',
 		rows: [
-			{ label: '5h', percent: 10, used: 204, limit: 2000, text: null, resetsAt: new Date(Date.now() + 83 * 60_000).toISOString() },
-			{ label: 'Week', percent: 46, used: 4625, limit: 10000, text: null, resetsAt: new Date(Date.now() + 52 * 3600_000).toISOString() },
+			{ label: '5h', percent: 10, used: 204, limit: 2000, text: null, resetsAt: inFuture(83 * 60_000) },
+			{ label: 'Week', percent: 46, used: 4625, limit: 10000, text: null, resetsAt: inFuture(52 * 3600_000) },
 		],
 	})
 	assert.equal(line, '⚡zai-coding-cn·Lite 5h 10%(204/2.0k)·1h23m Week 46%(4.6k/10k)·2d4h')
@@ -391,7 +394,7 @@ test('detail text is multi-line with padded labels', () => {
 		title: 'zai-coding-cn',
 		plan: 'Lite',
 		rows: [
-			{ label: '5h', percent: 10.4, used: 204, limit: 2000, text: null, resetsAt: new Date(Date.now() + 83 * 60_000).toISOString() },
+			{ label: '5h', percent: 10.4, used: 204, limit: 2000, text: null, resetsAt: inFuture(83 * 60_000) },
 			{ label: 'Week', percent: 46, used: 4625, limit: 10000, text: null, resetsAt: null },
 		],
 	})
