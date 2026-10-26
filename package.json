@@ -1,0 +1,54 @@
+{
+	"name": "pi-coding-quota",
+	"version": "0.1.0",
+	"description": "Pi extension: show the remaining quota of the active coding-plan provider (GLM / Kimi / DeepSeek / MiniMax) in the footer status line",
+	"license": "MIT",
+	"author": "dddcp",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/dddcp/pi-usage.git"
+	},
+	"bugs": {
+		"url": "https://github.com/dddcp/pi-usage/issues"
+	},
+	"homepage": "https://github.com/dddcp/pi-usage#readme",
+	"keywords": [
+		"pi-package",
+		"pi",
+		"pi-extension",
+		"coding-plan",
+		"quota",
+		"usage",
+		"glm",
+		"kimi",
+		"deepseek",
+		"minimax"
+	],
+	"files": [
+		"src",
+		"scripts",
+		"README.md",
+		"LICENSE"
+	],
+	"pi": {
+		"extensions": [
+			"./src/index.ts"
+		]
+	},
+	"peerDependencies": {
+		"@earendil-works/pi-coding-agent": "*"
+	},
+	"devDependencies": {
+		"@earendil-works/pi-coding-agent": "^1.4.0",
+		"@types/node": "^24.0.0",
+		"typescript": "^5.7.0"
+	},
+	"type": "module",
+	"scripts": {
+		"setup": "node scripts/install.mjs",
+		"uninstall": "node scripts/install.mjs remove",
+		"test": "node test/run.mjs",
+		"verify-live": "node test/verify-live.mjs",
+		"typecheck": "tsc --noEmit"
+	}
+}
